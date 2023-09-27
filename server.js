@@ -82,18 +82,24 @@ app.post('/fetch',async (req,res,next) => {
     })
   }*/
 })
-/*app.post('/login', async (req, res,next)=> {
+app.post('/login', async (req, res,next)=> {
   try{
-    const emailn = req.body.email;
-    const useremail = await cust.find({ email:emailn });
-    const ismatch=await bcrypt.compare(emailn,useremail.email);
-      if(ismatch==true){
+    const name = req.body.name;
+    const useremail = await cust.findOne({ name:name });
+    console.log(useremail);
+    const ismatch=await bcrypt.compare(req.body.email,useremail.email);
+    console.log(ismatch)
+   /* const token=await useremail.generateauth()
+    console.log(token)*/
+      if(ismatch){
         return res.render('ind');
+        console.log("success");
       }
       else{
        res.send("Invalid");
       }
-      bcrypt.compareSync(emailn, useremail.email, function(err, res) {
+    }
+     /* bcrypt.compareSync(emailn, useremail.email, function(err, res) {
         if(emailn!= useremail.email){
           return res.json({success: false, message: 'passwords do not match'});
         } else {
@@ -102,19 +108,11 @@ app.post('/fetch',async (req,res,next) => {
         }
       });
       
-  }
+  }*/
   catch(error)
   {
     res.send(error);
   }
 
-  });*/
- /* const jwt=require("jsonwebtoken")
-  const jwtauth=async ()=>{
-    const token= await jwt.sign({_id:
-      "650bda1ac891fe5b9c869c9b"},"haihuoahfohguowehoguhweoughohgowihgohwghowhohgo")
-      console.log(token)
-      const userver= await jwt.verify(token,"haihuoahfohguowehoguhweoughohgowihgohwghowhohgo")
-        console.log(userver)
-  }
-  jwtauth()*/
+  });
+  
